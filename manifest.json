@@ -17,23 +17,11 @@
     "storage"
   ],
   "host_permissions": ["https://*.dreamwidth.org/*"],
-  "content_scripts": [
-    {
-      "matches": ["https://*.dreamwidth.org/*"],
-      "js": ["scripts/content.js", "scripts/popup.js"],
-      "run_at": "document_end"
-    }
-  ],
-  "background": {
-    "service_worker": "scripts/service_worker.js",
-    "type": "module"
-  },
   "web_accessible_resorces": [
     {
       "resources":
       [
-        "assets/*",
-        "scripts/*"
+        "assets/*"
       ],
       "matches": ["https://*.dreamwidth.org/*"]
     }
