@@ -1,24 +1,21 @@
 <script>
+  import Icon from "./components/Icon.svelte";
+  import Popup from "./components/Popup.svelte";
+  import { debounce, setStorageByComm } from "./scripts/helpers";
+
+  // ELEMENTS
+  const currentUsername = document.querySelectorAll("form span.ljuser")[0];
+  const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
+  const currentComm = window.location.href.match(regex)[1];
+  const textarea = document.querySelector("textarea");
+
+  // textarea.addEventListener(
+  //   "keyup",
+  //   debounce((e) => {
+  //     const currentData = e.target.value;
+  //     setStorageByComm(currentComm, currentUsername, currentData);
+  //   }, 5000)
+  // );
 </script>
 
-<main>
-  <h1 class="bg-red-900 text-red-50">Vite + Svelte</h1>
-</main>
-
-<style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
-</style>
+<Icon />
