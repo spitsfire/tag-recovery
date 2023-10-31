@@ -4,7 +4,7 @@ import App from "./App.svelte";
 const app = new App({
   target: document.querySelector(".qr-footer"),
   anchor: document.getElementById("previewplaceholder"),
-  hydrate: true,
+  hydrate: false,
 });
 
 export default app;

@@ -11,8 +11,8 @@
 
   let isClicked = false;
   const clickIcon = () => {
-    console.log("was clicked");
-    !isClicked;
+    console.log("was clicked", !isClicked);
+    isClicked = !isClicked;
   };
 
   // textarea.addEventListener(
@@ -24,5 +24,5 @@
   // );
 </script>
 
-<Popup {isClicked} />
+<Popup bind:isClicked />
 <Icon {clickIcon} />

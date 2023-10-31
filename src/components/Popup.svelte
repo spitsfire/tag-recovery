@@ -1,14 +1,18 @@
 <script>
   export let isClicked;
+  console.log(isClicked);
+  if (isClicked) {
+    console.log("I changed");
+  }
 </script>
 
-<div id="tag-storage-container" class="hide">
+<div id="tag-storage-container" class={isClicked ? "visible" : "hide"}>
   <h1>Blah</h1>
 </div>
 
 <style>
   .visible {
-    display: block;
+    display: inline-block;
   }
   .hide {
     display: none;
