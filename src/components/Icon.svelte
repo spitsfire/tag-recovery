@@ -1,13 +1,7 @@
 <script>
-  import Popup from "./Popup.svelte";
-
-  let isClicked = false;
-  const clickIcon = () => !isClicked;
+  export let clickIcon;
 </script>
 
-{#if isClicked}
-  <Popup />
-{/if}
 <div id="tag-recovery-container">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->

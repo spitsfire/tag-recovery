@@ -1,15 +1,21 @@
 <script>
-  console.log("I'm here");
+  export let isClicked;
 </script>
 
-<main id="tag-storage-container">
+<div id="tag-storage-container" class="hide">
   <h1>Blah</h1>
-</main>
+</div>
 
 <style>
+  .visible {
+    display: block;
+  }
+  .hide {
+    display: none;
+  }
   #tag-storage-container {
     width: 100px;
     height: 100px;
-    float: left;
+    position: relative;
   }
 </style>
