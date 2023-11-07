@@ -27,50 +27,58 @@ INJECTS THE SVG ICON ELEMENT INTO THE TEXTAREA PARENT ELEMENT
 WAITS FOR KEYUP EVENT TIMEOUT
 IF KEYUP RESUMES, TIMEOUT IS RESET
 */
-// export const debounce = (callback, wait) => {
-//   let timeout;
-//   return (...args) => {
-//     clearTimeout(timeout);
-//     timeout = setTimeout(function () {
-//       callback.apply(this, args);
-//     }, wait);
-//   };
-// };
+export const debounce = (callback, wait) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      callback.apply(this, args);
+    }, wait);
+  };
+};
 
 /* 
 RETIREVES STORAGE OBJECT 
 BY CURRENT USER'S COMMUNITY SUBDOMAIN
 */
-// export const getStorageByComm = (comm) => {
-//   chrome.storage.sync
-//     .get([comm])
-//     .then((result) => {
-//       return result[comm];
-//     })
-//     .catch((err) => {
-//       return undefined;
-//     });
-// };
+export const getStorageByComm = (username) => {
+  console.log(username);
+  const result = JSON.parse(localStorage.getItem(username));
+  if (result) {
+    console.log(result);
+    return result;
+  } else {
+    return undefined;
+  }
+};
 /* 
 FILTERS CURRENT USER'S COMMUNITY SUBDOMAIN
 BY USERNAME
 */
-// export const filterByUsername = (storage, username) => {
-//   return storage.filter((tag) => tag.username === username);
-// };
+export const filterByUsername = (storage, username) => {
+  return storage.filter((tag) => tag.username === username);
+};
 
 /* 
 SAVES NEW TEXTAREA DATA 
 BY CURRENT USER'S COMMUNITY SUBDOMAIN
 */
-// export const setStorageByComm = (comm, username, data) => {
-//   const currentStorage = getStorageByComm(comm);
-//   const newTag = { [username]: data, timestamp: Date.now() };
-//   if (currentStorage) {
-//     const tempStorage = [...currentStorage];
-//     tempStorage.push(newTag);
-//     chrome.storage.sync.set({ [comm]: tempStorage });
-//   } else {
-//     chrome.storage.sync.set({ [comm]: [newTag] });
-//   }
-// };
+export const setStorageByComm = (
+  comm,
+  username,
+  data,
+  userStorage = undefined
+) => {
+  console.log("if userStorage", userStorage);
+  const newTag = { tag: data, timestamp: Date.now() };
+  if (userStorage) {
+    const tempStorage = [...userStorage];
+    tempStorage.push(newTag);
+    console.log("if currStorage. tempStorage", tempStorage);
+    localStorage.setItem(username, JSON.stringify(tempStorage));
+  } else {
+    console.log("else", newTag);
+    // const newEntry = { [username]: [newTag] };
+    localStorage.setItem(username, JSON.stringify([newTag]));
+  }
+};
