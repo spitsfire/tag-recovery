@@ -4,7 +4,7 @@
 
   import { debounce } from "./scripts/helpers";
   import { onDestroy } from "svelte";
-  import tagsStore from "./store/tags.store";
+  import { tags } from "./store/tags.store";
 
   // ELEMENTS
   const currentUsername = document
@@ -15,13 +15,13 @@
   const textarea = document.querySelector("textarea");
 
   // VARIABLES
-  const unsub = tagsStore.subscribe((data) => console.log(data));
+  const unsub = tags.subscribe((data) => console.log(data));
   let isClicked = false;
 
   // FUNCTIONS
   const clickIcon = () => {
     isClicked = !isClicked;
-    tagsStore.getByUsername(currentUsername);
+    tags.load(currentUsername);
   };
 
   // EVENT LISTENERS
@@ -30,16 +30,10 @@
     debounce(async (e) => {
       const currentData = e.target.value;
       console.log(currentUsername);
-      const result = await tagsStore.getByUsername(currentUsername);
-      if (result) {
-        tagsStore.setByUsername(
-          currentComm,
-          currentUsername,
-          currentData,
-          result
-        );
+      if ($tags) {
+        tags.save(currentComm, currentUsername, currentData, $tags);
       } else {
-        tagsStore.setByUsername(currentComm, currentUsername, currentData);
+        tags.save(currentComm, currentUsername, currentData);
       }
     }, 1000)
   );
@@ -48,7 +42,7 @@
 </script>
 
 <Icon {clickIcon} />
-<Popup bind:isClicked records={tagsStore} />
+<Popup bind:isClicked records={$tags} />
 
 <style>
   .qr-footer {
