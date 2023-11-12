@@ -41,44 +41,39 @@ export const debounce = (callback, wait) => {
 RETIREVES STORAGE OBJECT 
 BY CURRENT USER'S COMMUNITY SUBDOMAIN
 */
-// export const getStorageByComm = (username) => {
-//   console.log(username);
-//   const result = JSON.parse(localStorage.getItem(username));
-//   if (result) {
-//     console.log(result);
-//     return result;
-//   } else {
-//     return undefined;
-//   }
-// };
+export const loadStorage = (username) => {
+  console.log(username);
+  const result = JSON.parse(localStorage.getItem(username));
+  if (result) {
+    console.log(result);
+    return result;
+  } else {
+    return undefined;
+  }
+};
 /* 
 FILTERS CURRENT USER'S COMMUNITY SUBDOMAIN
 BY USERNAME
 */
-// export const filterByUsername = (storage, username) => {
-//   return storage.filter((tag) => tag.username === username);
-// };
+export const filterByUsername = (storage, username) => {
+  return storage.filter((tag) => tag.username === username);
+};
 
 /* 
 SAVES NEW TEXTAREA DATA 
 BY CURRENT USER'S COMMUNITY SUBDOMAIN
 */
-// export const setStorageByComm = (
-//   comm,
-//   username,
-//   data,
-//   userStorage = undefined
-// ) => {
-//   console.log("if userStorage", userStorage);
-//   const newTag = { tag: data, timestamp: Date.now() };
-//   if (userStorage) {
-//     const tempStorage = [...userStorage];
-//     tempStorage.push(newTag);
-//     console.log("if currStorage. tempStorage", tempStorage);
-//     localStorage.setItem(username, JSON.stringify(tempStorage));
-//   } else {
-//     console.log("else", newTag);
-//     // const newEntry = { [username]: [newTag] };
-//     localStorage.setItem(username, JSON.stringify([newTag]));
-//   }
-// };
+export const setStorage = (comm, username, newTag, userStorage) => {
+  console.log("if userStorage", userStorage);
+
+  if (userStorage) {
+    const tempStorage = [...userStorage];
+    tempStorage.push(newTag);
+    console.log("if currStorage. tempStorage", tempStorage);
+    localStorage.setItem(username, JSON.stringify(tempStorage));
+  } else {
+    console.log("else", newTag);
+    // const newEntry = { [username]: [newTag] };
+    localStorage.setItem(username, JSON.stringify([newTag]));
+  }
+};
