@@ -3,6 +3,8 @@
   export let isClicked;
   export let records;
 
+  console.log(records);
+
   const constantClasses = "container mx-auto px-4 rounded";
   const visible = `${constantClasses} visible`;
   const hide = `${constantClasses} hide`;
@@ -13,15 +15,18 @@
   <div id="tag-storage-container" class={isClicked ? visible : hide}>
     <table class="hover:table-fixed">
       <tbody>
-        <tr>
-          <td>{$records[0]}</td>
-        </tr>
-        <!-- {#each records as record}
+        {#if !records}
           <tr>
-            <td>{record.tag}</td>
-            <td>{record.timestamp}</td>
+            <td><p>Loading....</p></td>
           </tr>
-        {/each} -->
+        {:else}
+          {#each records.reverse() as record}
+            <tr>
+              <td>{record.tag}</td>
+              <td>{record.timestamp}</td>
+            </tr>
+          {/each}
+        {/if}
       </tbody>
     </table>
   </div>
