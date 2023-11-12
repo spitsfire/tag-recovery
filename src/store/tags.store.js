@@ -1,31 +1,23 @@
 import { writable } from "svelte/store";
+import { loadStorage, setStorage } from "./../scripts/helpers";
 
-const tags = writable([]);
+function createTags() {
+  const { subscribe, set, update } = writable([]);
+  return {
+    subscribe,
+    load: async (username) => {
+      const result = await loadStorage(username);
+      if (result) {
+        set(result);
+      }
+    },
+    save: async (comm, username, data, userStorage = undefined) => {
+      const newTag = { tag: data, timestamp: Date.now() };
+      await setStorage(comm, username, newTag, userStorage);
+      update((tags) => [...tags, newTag]);
+      loadStorage(username);
+    },
+  };
+}
 
-export default {
-  subscribe: tags.subscribe,
-  getByUsername: (username) => {
-    console.log(username);
-    const result = JSON.parse(localStorage.getItem(username));
-    if (result) {
-      console.log(result);
-      return result;
-    } else {
-      return undefined;
-    }
-  },
-  setByUsername: (comm, username, data, userStorage = undefined) => {
-    console.log("if userStorage", userStorage);
-    const newTag = { tag: data, timestamp: Date.now() };
-    if (userStorage) {
-      const tempStorage = [...userStorage];
-      tempStorage.push(newTag);
-      console.log("if currStorage. tempStorage", tempStorage);
-      localStorage.setItem(username, JSON.stringify(tempStorage));
-    } else {
-      console.log("else", newTag);
-      // const newEntry = { [username]: [newTag] };
-      localStorage.setItem(username, JSON.stringify([newTag]));
-    }
-  },
-};
+export const tags = createTags();
