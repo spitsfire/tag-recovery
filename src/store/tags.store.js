@@ -12,7 +12,7 @@ function createTags() {
       }
     },
     save: async (comm, username, data, userStorage = undefined) => {
-      const newTag = { tag: data, timestamp: Date.now() };
+      const newTag = { tag: data, timestamp: new Date().getTime() };
       await setStorage(comm, username, newTag, userStorage);
       update((tags) => [...tags, newTag]);
       loadStorage(username);
