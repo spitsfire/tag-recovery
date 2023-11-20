@@ -15,8 +15,5 @@
     "postcss": "^8.4.31",
     "svelte": "^4.0.5",
     "vite": "^4.4.5"
-  },
-  "dependencies": {
-    "@picocss/pico": "^1.5.10"
   }
 }
