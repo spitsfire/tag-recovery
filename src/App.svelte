@@ -30,7 +30,8 @@
   };
 
   const selectTag = (data, index) => {
-    textarea.value = data;
+    prevTextArea = data;
+    textarea.value = prevTextArea;
     isClicked = false;
   };
 
@@ -49,7 +50,7 @@
       } else {
         tags.save(currentComm, currentUsername, currentData);
       }
-    }, 1000)
+    }, 5000)
   );
 
   onDestroy(() => unsub());
