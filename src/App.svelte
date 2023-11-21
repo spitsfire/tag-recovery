@@ -25,8 +25,13 @@
     tags.load(currentUsername);
   };
 
+  const viewTag = (data) => {
+    textarea.value = data;
+  };
+
   const selectTag = (data, index) => {
     textarea.value = data;
+    isClicked = false;
   };
 
   const reset = () => {
@@ -36,7 +41,7 @@
   // EVENT LISTENERS
   textarea.addEventListener(
     "keyup",
-    debounce(async (e) => {
+    debounce((e) => {
       const currentData = e.target.value;
       prevTextArea = e.target.value;
       if ($tags) {
@@ -51,7 +56,7 @@
 </script>
 
 <Icon {clickIcon} />
-<Popup bind:isClicked records={$tags} {selectTag} {reset} />
+<Popup bind:isClicked records={$tags} {viewTag} {selectTag} {reset} />
 
 <style>
   .qr-footer {
