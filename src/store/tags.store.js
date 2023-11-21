@@ -15,7 +15,12 @@ function createTags() {
       const newTag = { tag: data, timestamp: new Date().getTime() };
       await setStorage(comm, username, newTag, userStorage);
       update((tags) => [...tags, newTag]);
-      loadStorage(username);
+      await loadStorage(username);
+    },
+    shift: (allTags, index) => {
+      const temp = allTags;
+      temp.unshift(temp.splice(index, 1)[0]);
+      update((tags) => [...temp]);
     },
   };
 }
