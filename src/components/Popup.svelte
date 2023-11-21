@@ -3,6 +3,7 @@
   export let records;
   export let selectTag;
   export let reset;
+  export let viewTag;
 
   import { formatDate } from "./../scripts/helpers";
 
@@ -15,17 +16,18 @@
   <div id="tag-storage-container">
     <table role="grid">
       <tbody>
-        {#if !records}
+        {#if records === []}
           <tr>
             <td><p>Loading....</p></td>
           </tr>
         {:else}
           {#each records.reverse() as record, index}
             <tr
-              on:mouseover={() => selectTag(record.tag, index)}
-              on:focus={() => selectTag(record.tag, index)}
+              on:mouseover={() => viewTag(record.tag)}
+              on:focus={() => viewTag(record.tag)}
               on:mouseleave={reset}
               on:focusout={reset}
+              on:click={() => selectTag(record.tag, index)}
             >
               <td class="tag-text">{record.tag}</td>
               <td class="timestamp">{formatDate(new Date(record.timestamp))}</td
