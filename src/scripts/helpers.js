@@ -36,22 +36,27 @@ export const filterByUsername = (storage, username) => {
 ADDS NEW TAG TO RECORDS STORE
 */
 export const createTag = (data) => {
-  const newTag = { tag: data, timestamp: new Date() };
-  records.update((value) => [...value, data]);
+  try {
+    const newTag = { tag: data, timestamp: new Date().getTime() };
+    records.update((value) => [...value, data]);
+    return true;
+  } catch (err) {
+    return err;
+  }
 };
-
+/*
+TAKES THE SELECTED TAG 
+AND MOVES IT TO THE FRONT AS THE LATEST TAG
+*/
+export const shiftTags = (index) => {
+  records.update((value) => value.unshift(value.splice(index, 1)[0]));
+};
 /* 
 SAVES LATEST STORE BY
 CURRENT USER'S COMMUNITY SUBDOMAIN
 */
-export const setStorage = ({ comm, username }, newTag) => {
-  if ($records) {
-    const tempStorage = [...$records];
-    tempStorage.push(newTag);
-    localStorage.setItem(username, JSON.stringify(tempStorage));
-  } else {
-    localStorage.setItem(username, JSON.stringify([newTag]));
-  }
+export const setStorage = (username) => {
+  localStorage.setItem(username, JSON.stringify($records));
 };
 
 export const formatDate = (date) => {
