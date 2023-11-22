@@ -13,7 +13,8 @@
   import { onMount } from "svelte";
 
   const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
-  const session = { comm: undefined, username: undefined };
+  let username;
+  let comm;
   let prevTextArea;
   let textarea;
   let currentRecords;
@@ -58,10 +59,10 @@
 
   // LIFECYCLE
   onMount(() => {
-    session.username = document
+    username = document
       .querySelector("form span.ljuser")
       .getAttribute("lj:user");
-    session.comm = window.location.href.match(regex)[1];
+    comm = window.location.href.match(regex)[1];
     textarea = document.querySelector("textarea");
     prevTextArea = textarea.value;
     const unsub = tags.subscribe((value) => (currentRecords = value));
