@@ -12,12 +12,11 @@
   import { records } from "./store/records.store";
   import { onMount } from "svelte";
 
-  const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
+  // const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
   let username;
-  let comm;
+  // let comm;
   let prevTextArea;
   let textarea;
-  let currentRecords;
   let isClicked = false;
 
   // FUNCTIONS
@@ -46,9 +45,8 @@
   textarea.addEventListener(
     "keyup",
     debounce((e) => {
-      const currentText = e.target.value;
       prevTextArea = e.target.value;
-      const result = createTag(currentText);
+      const result = createTag(e.target.value);
       if (result === true) {
         setStorage(username);
       } else {
@@ -62,10 +60,11 @@
     username = document
       .querySelector("form span.ljuser")
       .getAttribute("lj:user");
-    comm = window.location.href.match(regex)[1];
+    // comm = window.location.href.match(regex)[1];
     textarea = document.querySelector("textarea");
     prevTextArea = textarea.value;
-    const unsub = tags.subscribe((value) => (currentRecords = value));
+    const unsub = records.subscribe((value) => (currentRecords = value));
+    records.set(loadStorage(username));
 
     return () => unsub();
   });
