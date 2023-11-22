@@ -37,9 +37,9 @@ export const filterByUsername = (storage, username) => {
 SAVES NEW TEXTAREA DATA 
 BY CURRENT USER'S COMMUNITY SUBDOMAIN
 */
-export const setStorage = ({ comm, username }, newTag, records) => {
-  if (records) {
-    const tempStorage = [...records];
+export const setStorage = ({ comm, username }, newTag) => {
+  if ($records) {
+    const tempStorage = [...$records];
     tempStorage.push(newTag);
     localStorage.setItem(username, JSON.stringify(tempStorage));
   } else {
