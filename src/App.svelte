@@ -2,7 +2,13 @@
   import Icon from "./components/Icon.svelte";
   import Popup from "./components/Popup.svelte";
 
-  import { debounce, loadStorage } from "./scripts/helpers";
+  import {
+    createTag,
+    debounce,
+    loadStorage,
+    setStorage,
+    shiftTags,
+  } from "./scripts/helpers";
   import { records } from "./store/records.store";
   import { onMount } from "svelte";
 
@@ -27,6 +33,8 @@
     prevTextArea = data;
     textarea.value = prevTextArea;
     isClicked = false;
+    shiftTags(index);
+    setStorage(username);
   };
 
   const reset = () => {
@@ -39,7 +47,12 @@
     debounce((e) => {
       const currentText = e.target.value;
       prevTextArea = e.target.value;
-      setStorage(session, currentText);
+      const result = createTag(currentText);
+      if (result === true) {
+        setStorage(username);
+      } else {
+        console.log(result);
+      }
     }, 5000)
   );
 
