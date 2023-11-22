@@ -32,10 +32,17 @@ BY USERNAME
 export const filterByUsername = (storage, username) => {
   return storage.filter((tag) => tag.username === username);
 };
+/*
+ADDS NEW TAG TO RECORDS STORE
+*/
+export const createTag = (data) => {
+  const newTag = { tag: data, timestamp: new Date() };
+  records.update((value) => [...value, data]);
+};
 
 /* 
-SAVES NEW TEXTAREA DATA 
-BY CURRENT USER'S COMMUNITY SUBDOMAIN
+SAVES LATEST STORE BY
+CURRENT USER'S COMMUNITY SUBDOMAIN
 */
 export const setStorage = ({ comm, username }, newTag) => {
   if ($records) {
