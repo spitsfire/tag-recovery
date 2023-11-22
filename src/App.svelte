@@ -2,27 +2,21 @@
   import Icon from "./components/Icon.svelte";
   import Popup from "./components/Popup.svelte";
 
-  import { debounce } from "./scripts/helpers";
-  import { onDestroy } from "svelte";
-  import { tags } from "./store/tags.store";
+  import { debounce, loadStorage } from "./scripts/helpers";
+  import { records } from "./store/records.store";
+  import { onMount } from "svelte";
 
-  // ELEMENTS
-  const currentUsername = document
-    .querySelector("form span.ljuser")
-    .getAttribute("lj:user");
   const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
-  const currentComm = window.location.href.match(regex)[1];
-  const textarea = document.querySelector("textarea");
-  let prevTextArea = textarea.value;
-
-  // VARIABLES
-  const unsub = tags.subscribe((data) => console.log(data));
+  const session = { comm: undefined, username: undefined };
+  let prevTextArea;
+  let textarea;
+  let currentRecords;
   let isClicked = false;
 
   // FUNCTIONS
   const clickIcon = () => {
     isClicked = !isClicked;
-    tags.load(currentUsername);
+    records.set(loadStorage(currentUsername));
   };
 
   const viewTag = (data) => {
@@ -43,21 +37,28 @@
   textarea.addEventListener(
     "keyup",
     debounce((e) => {
-      const currentData = e.target.value;
+      const currentText = e.target.value;
       prevTextArea = e.target.value;
-      if ($tags) {
-        tags.save(currentComm, currentUsername, currentData, $tags);
-      } else {
-        tags.save(currentComm, currentUsername, currentData);
-      }
+      setStorage(session, currentText);
     }, 5000)
   );
 
-  onDestroy(() => unsub());
+  // LIFECYCLE
+  onMount(() => {
+    session.username = document
+      .querySelector("form span.ljuser")
+      .getAttribute("lj:user");
+    session.comm = window.location.href.match(regex)[1];
+    textarea = document.querySelector("textarea");
+    prevTextArea = textarea.value;
+    const unsub = tags.subscribe((value) => (currentRecords = value));
+
+    return () => unsub();
+  });
 </script>
 
 <Icon {clickIcon} />
-<Popup bind:isClicked records={$tags} {viewTag} {selectTag} {reset} />
+<Popup bind:isClicked records={$records} {viewTag} {selectTag} {reset} />
 
 <style>
   .qr-footer {
