@@ -16,22 +16,25 @@ export const debounce = (callback, wait) => {
 /* 
 RETIREVES STORAGE OBJECT 
 BY CURRENT USER'S COMMUNITY SUBDOMAIN
+IF NO STORAGE,
+CREATES EMPTY STARTER
 */
 export const loadStorage = (username) => {
   const result = JSON.parse(localStorage.getItem(username));
   if (result) {
     return result;
   } else {
-    return undefined;
+    localStorage.setItem(username, JSON.stringify([]));
+    return [];
   }
 };
 /* 
 FILTERS CURRENT USER'S COMMUNITY SUBDOMAIN
 BY USERNAME
 */
-export const filterByUsername = (storage, username) => {
-  return storage.filter((tag) => tag.username === username);
-};
+// export const filterByUsername = (storage, username) => {
+//   return storage.filter((tag) => tag.username === username);
+// };
 /*
 ADDS NEW TAG TO RECORDS STORE
 */
