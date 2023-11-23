@@ -5,7 +5,16 @@
   export let reset;
   export let viewTag;
 
-  import { formatDate } from "./../scripts/helpers";
+  function formatDate(date) {
+    const hh = date.getHours() % 12 || 12;
+    const min =
+      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    const mm = date.getMonth() + 1;
+    const dd = date.getDate();
+    const mer = date.getHours() >= 12 ? "pm" : "am";
+    const localDate = `${hh}:${min}${mer} - ${mm}/${dd}`;
+    return localDate;
+  }
 
   const constantClasses = "wrap";
   const visible = `${constantClasses} visible`;

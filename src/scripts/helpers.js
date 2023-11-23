@@ -51,15 +51,15 @@ export const createTag = (data) => {
 TAKES THE SELECTED TAG 
 AND MOVES IT TO THE FRONT AS THE LATEST TAG
 */
-export const shiftTags = (index) => {
-  records.update((value) => value.unshift(value.splice(index, 1)[0]));
-};
+// export const shiftTags = (index) => {
+//   records.update((value) => value.unshift(value.splice(index, 1)[0]));
+// };
 /* 
 SAVES LATEST STORE BY
 CURRENT USER'S COMMUNITY SUBDOMAIN
 */
-export const setStorage = (username) => {
-  localStorage.setItem(username, JSON.stringify($records));
+export const setStorage = (username, records) => {
+  localStorage.setItem(username, JSON.stringify(records));
 };
 
 export const formatDate = (date) => {

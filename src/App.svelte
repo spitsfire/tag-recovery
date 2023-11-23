@@ -1,45 +1,81 @@
 <script>
   import Icon from "./components/Icon.svelte";
   import Popup from "./components/Popup.svelte";
-
-  import {
-    createTag,
-    debounce,
-    loadStorage,
-    setStorage,
-    shiftTags,
-  } from "./scripts/helpers";
   import { records } from "./store/records.store";
-  import { onMount } from "svelte";
+  import { onDestroy } from "svelte";
 
-  // const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
-  let username;
-  // let comm;
-  let prevTextArea;
-  let textarea;
+  const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
+  const username = document
+    .querySelector("form span.ljuser")
+    .getAttribute("lj:user");
+  const comm = window.location.href.match(regex)[1];
+  const textarea = document.querySelector("textarea");
+  let prevTextArea = textarea.value;
+  const unsub = records.subscribe(() => console.log("subscribed"));
+  records.set(loadStorage(username));
   let isClicked = false;
 
   // FUNCTIONS
-  const clickIcon = () => {
+  function clickIcon() {
     isClicked = !isClicked;
-    records.set(loadStorage(currentUsername));
-  };
+  }
 
-  const viewTag = (data) => {
+  function createTag(data) {
+    try {
+      const newTag = { tag: data, timestamp: new Date().getTime() };
+      records.update((value) => [...value, newTag]);
+      return true;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  function viewTag(data) {
     textarea.value = data;
-  };
+  }
 
-  const selectTag = (data, index) => {
+  function selectTag(data, index) {
     prevTextArea = data;
     textarea.value = prevTextArea;
     isClicked = false;
     shiftTags(index);
-    setStorage(username);
-  };
+    setStorage();
+  }
 
-  const reset = () => {
+  function reset() {
     textarea.value = prevTextArea;
-  };
+  }
+
+  function loadStorage() {
+    const result = JSON.parse(localStorage.getItem(username));
+    if (result) {
+      return result;
+    } else {
+      localStorage.setItem(username, JSON.stringify([]));
+      return [];
+    }
+  }
+
+  function setStorage() {
+    localStorage.setItem(username, JSON.stringify($records));
+  }
+
+  function shiftTags(index) {
+    records.update((value) => value.unshift(value.splice(index, 1)[0]));
+  }
+
+  function debounce(callback, wait) {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(function () {
+        callback.apply(this, args);
+      }, wait);
+    };
+  }
+
+  // LIFECYCLE
+  onDestroy(() => unsub());
 
   // EVENT LISTENERS
   textarea.addEventListener(
@@ -48,26 +84,12 @@
       prevTextArea = e.target.value;
       const result = createTag(e.target.value);
       if (result === true) {
-        setStorage(username);
+        setStorage();
       } else {
         console.log(result);
       }
     }, 5000)
   );
-
-  // LIFECYCLE
-  onMount(() => {
-    username = document
-      .querySelector("form span.ljuser")
-      .getAttribute("lj:user");
-    // comm = window.location.href.match(regex)[1];
-    textarea = document.querySelector("textarea");
-    prevTextArea = textarea.value;
-    const unsub = records.subscribe((value) => (currentRecords = value));
-    records.set(loadStorage(username));
-
-    return () => unsub();
-  });
 </script>
 
 <Icon {clickIcon} />
