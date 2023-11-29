@@ -4,11 +4,9 @@
   import { records } from "./store/records.store";
   import { onDestroy } from "svelte";
 
-  const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
   const username = document
     .querySelector("form span.ljuser")
     .getAttribute("lj:user");
-  const comm = window.location.href.match(regex)[1];
   const textarea = document.querySelector("textarea");
   let prevTextArea = textarea.value;
   const unsub = records.subscribe(() => console.log("subscribed"));
