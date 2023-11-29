@@ -154,7 +154,7 @@
   =======================
   |   EVENT LISTENERS   |
   =======================
-*/
+  */
 
   /*
   WAITS A SET AMT OF INACTIVE TIME,
