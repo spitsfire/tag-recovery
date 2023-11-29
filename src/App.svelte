@@ -1,57 +1,111 @@
 <script>
   import Icon from "./components/Icon.svelte";
   import Popup from "./components/Popup.svelte";
-
-  import { debounce } from "./scripts/helpers";
+  import { records } from "./store/records.store";
   import { onDestroy } from "svelte";
-  import { tags } from "./store/tags.store";
+  import { nanoid } from "nanoid";
 
-  // ELEMENTS
-  const currentUsername = document
+  const username = document
     .querySelector("form span.ljuser")
     .getAttribute("lj:user");
-  const regex = /(?:https:\/\/)?(?:([^.]+)\.)?dreamwidth\.org/;
-  const currentComm = window.location.href.match(regex)[1];
   const textarea = document.querySelector("textarea");
   let prevTextArea = textarea.value;
-
-  // VARIABLES
-  const unsub = tags.subscribe((data) => console.log(data));
+  const unsub = records.subscribe((data) => console.log(data));
+  records.set(loadStorage(username));
   let isClicked = false;
 
   // FUNCTIONS
-  const clickIcon = () => {
+  function clickIcon() {
     isClicked = !isClicked;
-    tags.load(currentUsername);
-  };
+  }
 
-  const selectTag = (data, index) => {
+  function createTag(data) {
+    try {
+      const newTag = {
+        id: nanoid(),
+        tag: data,
+        timestamp: new Date().getTime(),
+      };
+      records.update((value) => {
+        value.push(newTag);
+        return value;
+      });
+      return true;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  function viewTag(data) {
     textarea.value = data;
-  };
+  }
 
-  const reset = () => {
+  function selectTag(record) {
+    prevTextArea = record.tag;
     textarea.value = prevTextArea;
-  };
+    clickIcon();
+    shiftTags(record);
+    setStorage();
+  }
+
+  function reset() {
+    textarea.value = prevTextArea;
+  }
+
+  function loadStorage() {
+    const result = JSON.parse(localStorage.getItem(username));
+    console.log(result);
+    if (result) {
+      return result;
+    } else {
+      localStorage.setItem(username, JSON.stringify([]));
+      return [];
+    }
+  }
+
+  function setStorage() {
+    localStorage.setItem(username, JSON.stringify($records));
+  }
+
+  function shiftTags(record) {
+    record.timestamp = new Date().getTime();
+    records.update((value) => {
+      const filteredArray = value.filter((v) => v.id !== record.id);
+      filteredArray.push(record);
+      return filteredArray;
+    });
+  }
+
+  function debounce(callback, wait) {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(function () {
+        callback.apply(this, args);
+      }, wait);
+    };
+  }
+
+  // LIFECYCLE
+  onDestroy(() => unsub());
 
   // EVENT LISTENERS
   textarea.addEventListener(
     "keyup",
-    debounce(async (e) => {
-      const currentData = e.target.value;
+    debounce((e) => {
       prevTextArea = e.target.value;
-      if ($tags) {
-        tags.save(currentComm, currentUsername, currentData, $tags);
+      const result = createTag(e.target.value);
+      if (result === true) {
+        setStorage();
       } else {
-        tags.save(currentComm, currentUsername, currentData);
+        console.log(result);
       }
-    }, 1000)
+    }, 5000)
   );
-
-  onDestroy(() => unsub());
 </script>
 
 <Icon {clickIcon} />
-<Popup bind:isClicked records={$tags} {selectTag} {reset} />
+<Popup bind:isClicked records={$records} {viewTag} {selectTag} {reset} />
 
 <style>
   .qr-footer {

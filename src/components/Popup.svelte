@@ -3,8 +3,18 @@
   export let records;
   export let selectTag;
   export let reset;
+  export let viewTag;
 
-  import { formatDate } from "./../scripts/helpers";
+  function formatDate(date) {
+    const hh = date.getHours() % 12 || 12;
+    const min =
+      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    const mm = date.getMonth() + 1;
+    const dd = date.getDate();
+    const mer = date.getHours() >= 12 ? "pm" : "am";
+    const localDate = `${hh}:${min}${mer} - ${mm}/${dd}`;
+    return localDate;
+  }
 
   const constantClasses = "wrap";
   const visible = `${constantClasses} visible`;
@@ -15,17 +25,18 @@
   <div id="tag-storage-container">
     <table role="grid">
       <tbody>
-        {#if !records}
+        {#if records === []}
           <tr>
             <td><p>Loading....</p></td>
           </tr>
         {:else}
-          {#each records.reverse() as record, index}
+          {#each records.toReversed() as record}
             <tr
-              on:mouseover={() => selectTag(record.tag, index)}
-              on:focus={() => selectTag(record.tag, index)}
+              on:mouseover={() => viewTag(record.tag)}
+              on:focus={() => viewTag(record.tag)}
               on:mouseleave={reset}
               on:focusout={reset}
+              on:click={() => selectTag(record)}
             >
               <td class="tag-text">{record.tag}</td>
               <td class="timestamp">{formatDate(new Date(record.timestamp))}</td

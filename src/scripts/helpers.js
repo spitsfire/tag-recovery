@@ -1,3 +1,4 @@
+import { records } from "./../store/records.store";
 /* 
 WAITS FOR KEYUP EVENT TIMEOUT
 IF KEYUP RESUMES, TIMEOUT IS RESET
@@ -15,37 +16,50 @@ export const debounce = (callback, wait) => {
 /* 
 RETIREVES STORAGE OBJECT 
 BY CURRENT USER'S COMMUNITY SUBDOMAIN
+IF NO STORAGE,
+CREATES EMPTY STARTER
 */
 export const loadStorage = (username) => {
   const result = JSON.parse(localStorage.getItem(username));
   if (result) {
-    console.log(result);
     return result;
   } else {
-    return undefined;
+    localStorage.setItem(username, JSON.stringify([]));
+    return [];
   }
 };
 /* 
 FILTERS CURRENT USER'S COMMUNITY SUBDOMAIN
 BY USERNAME
 */
-export const filterByUsername = (storage, username) => {
-  return storage.filter((tag) => tag.username === username);
-};
-
-/* 
-SAVES NEW TEXTAREA DATA 
-BY CURRENT USER'S COMMUNITY SUBDOMAIN
+// export const filterByUsername = (storage, username) => {
+//   return storage.filter((tag) => tag.username === username);
+// };
+/*
+ADDS NEW TAG TO RECORDS STORE
 */
-export const setStorage = (comm, username, newTag, userStorage) => {
-  if (userStorage) {
-    const tempStorage = [...userStorage];
-    tempStorage.push(newTag);
-    localStorage.setItem(username, JSON.stringify(tempStorage));
-  } else {
-    console.log("else", newTag);
-    localStorage.setItem(username, JSON.stringify([newTag]));
+export const createTag = (data) => {
+  try {
+    const newTag = { tag: data, timestamp: new Date().getTime() };
+    records.update((value) => [...value, data]);
+    return true;
+  } catch (err) {
+    return err;
   }
+};
+/*
+TAKES THE SELECTED TAG 
+AND MOVES IT TO THE FRONT AS THE LATEST TAG
+*/
+// export const shiftTags = (index) => {
+//   records.update((value) => value.unshift(value.splice(index, 1)[0]));
+// };
+/* 
+SAVES LATEST STORE BY
+CURRENT USER'S COMMUNITY SUBDOMAIN
+*/
+export const setStorage = (username, records) => {
+  localStorage.setItem(username, JSON.stringify(records));
 };
 
 export const formatDate = (date) => {
