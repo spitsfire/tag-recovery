@@ -30,13 +30,13 @@
             <td><p>Loading....</p></td>
           </tr>
         {:else}
-          {#each records.reverse() as record, index}
+          {#each records.toReversed() as record}
             <tr
               on:mouseover={() => viewTag(record.tag)}
               on:focus={() => viewTag(record.tag)}
               on:mouseleave={reset}
               on:focusout={reset}
-              on:click={() => selectTag(record.tag, index)}
+              on:click={() => selectTag(record)}
             >
               <td class="tag-text">{record.tag}</td>
               <td class="timestamp">{formatDate(new Date(record.timestamp))}</td

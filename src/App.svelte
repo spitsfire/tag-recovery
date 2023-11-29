@@ -3,13 +3,14 @@
   import Popup from "./components/Popup.svelte";
   import { records } from "./store/records.store";
   import { onDestroy } from "svelte";
+  import { nanoid } from "nanoid";
 
   const username = document
     .querySelector("form span.ljuser")
     .getAttribute("lj:user");
   const textarea = document.querySelector("textarea");
   let prevTextArea = textarea.value;
-  const unsub = records.subscribe(() => console.log("subscribed"));
+  const unsub = records.subscribe((data) => console.log(data));
   records.set(loadStorage(username));
   let isClicked = false;
 
@@ -20,8 +21,15 @@
 
   function createTag(data) {
     try {
-      const newTag = { tag: data, timestamp: new Date().getTime() };
-      records.update((value) => [...value, newTag]);
+      const newTag = {
+        id: nanoid(),
+        tag: data,
+        timestamp: new Date().getTime(),
+      };
+      records.update((value) => {
+        value.push(newTag);
+        return value;
+      });
       return true;
     } catch (err) {
       return err;
@@ -32,11 +40,11 @@
     textarea.value = data;
   }
 
-  function selectTag(data, index) {
-    prevTextArea = data;
+  function selectTag(record) {
+    prevTextArea = record.tag;
     textarea.value = prevTextArea;
-    isClicked = false;
-    shiftTags(index);
+    clickIcon();
+    shiftTags(record);
     setStorage();
   }
 
@@ -46,6 +54,7 @@
 
   function loadStorage() {
     const result = JSON.parse(localStorage.getItem(username));
+    console.log(result);
     if (result) {
       return result;
     } else {
@@ -58,8 +67,13 @@
     localStorage.setItem(username, JSON.stringify($records));
   }
 
-  function shiftTags(index) {
-    records.update((value) => value.unshift(value.splice(index, 1)[0]));
+  function shiftTags(record) {
+    record.timestamp = new Date().getTime();
+    records.update((value) => {
+      const filteredArray = value.filter((v) => v.id !== record.id);
+      filteredArray.push(record);
+      return filteredArray;
+    });
   }
 
   function debounce(callback, wait) {
