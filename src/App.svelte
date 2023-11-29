@@ -54,7 +54,6 @@
 
   function loadStorage() {
     const result = JSON.parse(localStorage.getItem(username));
-    console.log(result);
     if (result) {
       const filteredResult = checkExpByDays(result, 2);
       return filteredResult;
