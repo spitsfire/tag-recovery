@@ -11,14 +11,27 @@
   const textarea = document.querySelector("textarea");
   let prevTextArea = textarea.value;
   const unsub = records.subscribe((data) => console.log(data));
+  // the store
   records.set(loadStorage(username));
   let isClicked = false;
 
-  // FUNCTIONS
+  /* 
+  =======================
+  |      FUNCTIONS      |
+  =======================
+  */
+
+  /*
+  TOGGLES ISCLICKED BOOLEAN
+  TO TURN ON/OFF POPUP COMPONENT
+  */
   function clickIcon() {
     isClicked = !isClicked;
   }
 
+  /*
+  ADDS NEW TAG TO RECORDS STORE
+  */
   function createTag(data) {
     try {
       const newTag = {
@@ -36,10 +49,18 @@
     }
   }
 
+  /*
+  UPDATES TEXTAREA WITH THE CURRENTLY VIEWED
+  OR "FOCUSED" ON TAG
+  */
   function viewTag(data) {
     textarea.value = data;
   }
 
+  /*
+  TAKES THE SELECTED TAG 
+  AND MOVES IT TO THE FRONT AS THE LATEST TAG
+  */
   function selectTag(record) {
     prevTextArea = record.tag;
     textarea.value = prevTextArea;
@@ -48,10 +69,20 @@
     setStorage();
   }
 
+  /*
+  RESETS THE TEXTAREA
+  TO ITS PREVIOUS VALUE
+  */
   function reset() {
     textarea.value = prevTextArea;
   }
 
+  /* 
+  RETIREVES STORAGE OBJECT 
+  BY CURRENT USER
+  IF NO STORAGE,
+  CREATES EMPTY STARTER
+  */
   function loadStorage() {
     const result = JSON.parse(localStorage.getItem(username));
     if (result) {
@@ -63,10 +94,18 @@
     }
   }
 
+  /* 
+  SAVES LATEST STORE BY CURRENT USER
+  */
   function setStorage() {
     localStorage.setItem(username, JSON.stringify($records));
   }
 
+  /*
+  MOVES THE SLECTED TAG
+  TO THE TOP OF THE ARRAY
+  AND UPDATES ITS TIMESTAMP
+  */
   function shiftTags(record) {
     record.timestamp = new Date().getTime();
     records.update((value) => {
@@ -76,6 +115,10 @@
     });
   }
 
+  /*
+  FILTERS THRU RECORDS
+  BASED ON AMT OF DAYS PASSED IN
+  */
   function checkExpByDays(data, amt) {
     const targetDate = new Date();
     targetDate.setDate(targetDate.getDate() - amt);
@@ -85,6 +128,10 @@
     return filteredData;
   }
 
+  /* 
+  WAITS FOR KEYUP EVENT TIMEOUT
+  IF KEYUP RESUMES, TIMEOUT IS RESET
+  */
   function debounce(callback, wait) {
     let timeout;
     return (...args) => {
@@ -95,10 +142,25 @@
     };
   }
 
-  // LIFECYCLE
+  /* 
+  =======================
+  |      LIFECYCLE      |
+  =======================
+*/
+
   onDestroy(() => unsub());
 
-  // EVENT LISTENERS
+  /* 
+  =======================
+  |   EVENT LISTENERS   |
+  =======================
+*/
+
+  /*
+  WAITS A SET AMT OF INACTIVE TIME,
+  THEN SAVES TEXTAREA VALUE
+  IN LOCAL STORAGE
+  */
   textarea.addEventListener(
     "keyup",
     debounce((e) => {
