@@ -54,9 +54,9 @@
 
   function loadStorage() {
     const result = JSON.parse(localStorage.getItem(username));
-    console.log(result);
     if (result) {
-      return result;
+      const filteredResult = checkExpByDays(result, 2);
+      return filteredResult;
     } else {
       localStorage.setItem(username, JSON.stringify([]));
       return [];
@@ -74,6 +74,15 @@
       filteredArray.push(record);
       return filteredArray;
     });
+  }
+
+  function checkExpByDays(data, amt) {
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() - amt);
+    const filteredData = data.filter(
+      (record) => new Date(record.timestamp) > targetDate
+    );
+    return filteredData;
   }
 
   function debounce(callback, wait) {

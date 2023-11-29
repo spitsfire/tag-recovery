@@ -1,4 +1,3 @@
-import { records } from "./../store/records.store";
 /* 
 WAITS FOR KEYUP EVENT TIMEOUT
 IF KEYUP RESUMES, TIMEOUT IS RESET
