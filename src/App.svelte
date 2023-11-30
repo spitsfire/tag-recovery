@@ -1,6 +1,6 @@
 <script>
   import Icon from "./components/Icon.svelte";
-  import Popup from "./components/Popup.svelte";
+  import Records from "./components/Records.svelte";
   import { records } from "./store/records.store";
   import { onDestroy } from "svelte";
   import { nanoid } from "nanoid";
@@ -11,7 +11,6 @@
   const textarea = document.querySelector("textarea");
   const unsub = records.subscribe((data) => console.log(data));
   let dwrpTools = document.querySelectorAll("input.custom-button");
-  console.log("on initial load", dwrpTools);
   let prevTextArea = textarea.value;
   let isClicked = false;
   // the store
@@ -184,7 +183,6 @@
     */
     dwrpTools.forEach((btn) => {
       btn.addEventListener("click", () => {
-        console.log("inside button");
         const result = createTag(textarea.value);
         if (result === true) {
           setStorage();
@@ -197,7 +195,7 @@
 </script>
 
 <Icon {clickIcon} />
-<Popup bind:isClicked records={$records} {viewTag} {selectTag} {reset} />
+<Records bind:isClicked records={$records} {viewTag} {selectTag} {reset} />
 
 <style>
   .qr-footer {
