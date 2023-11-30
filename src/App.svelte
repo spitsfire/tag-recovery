@@ -9,11 +9,13 @@
     .querySelector("form span.ljuser")
     .getAttribute("lj:user");
   const textarea = document.querySelector("textarea");
-  let prevTextArea = textarea.value;
   const unsub = records.subscribe((data) => console.log(data));
+  let dwrpTools = document.querySelectorAll("input.custom-button");
+  console.log("on initial load", dwrpTools);
+  let prevTextArea = textarea.value;
+  let isClicked = false;
   // the store
   records.set(loadStorage(username));
-  let isClicked = false;
 
   /* 
   =======================
@@ -173,6 +175,25 @@
       }
     }, 5000)
   );
+
+  if (dwrpTools) {
+    /*
+    DETECTS USE OF DWRP TOOL BUTTONS
+    AND SAVES LATEST TEXTAREA INJECTION
+    TO LOCAL STORAGE
+    */
+    dwrpTools.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        console.log("inside button");
+        const result = createTag(textarea.value);
+        if (result === true) {
+          setStorage();
+        } else {
+          console.log(result);
+        }
+      });
+    });
+  }
 </script>
 
 <Icon {clickIcon} />
