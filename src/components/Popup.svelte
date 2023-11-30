@@ -5,6 +5,14 @@
   export let reset;
   export let viewTag;
 
+  const constantClasses = "wrap";
+  const visible = `${constantClasses} visible`;
+  const hide = `${constantClasses} hide`;
+
+  /*
+  FORMATS RECORD'S TIMESTAMP
+  FROM LOCAL STORAGE
+  */
   function formatDate(date) {
     const hh = date.getHours() % 12 || 12;
     const min =
@@ -15,19 +23,15 @@
     const localDate = `${hh}:${min}${mer} - ${mm}/${dd}`;
     return localDate;
   }
-
-  const constantClasses = "wrap";
-  const visible = `${constantClasses} visible`;
-  const hide = `${constantClasses} hide`;
 </script>
 
 <div class={isClicked ? visible : hide}>
   <div id="tag-storage-container">
     <table role="grid">
       <tbody>
-        {#if records === []}
+        {#if records.length < 1}
           <tr>
-            <td><p>Loading....</p></td>
+            <td id="no-texts">No saved tags yet.</td>
           </tr>
         {:else}
           {#each records.toReversed() as record}
@@ -72,6 +76,10 @@
     text-align: right;
     margin-right: 10px;
   }
+  #no-texts {
+    background-color: rgba(0, 9, 40, 0.04);
+    margin: 10px auto;
+  }
   #tag-storage-container {
     margin: 0 auto;
     padding: 0.2em;
@@ -110,5 +118,8 @@
   #tag-storage-container table tr:hover,
   #tag-storage-container table tr:nth-child(even):hover {
     background-color: rgba(0, 9, 40, 0.07);
+  }
+  #tag-storage-container table tr td {
+    padding: 0.45em;
   }
 </style>
