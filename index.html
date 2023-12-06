@@ -2,12 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/img/icon-32.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Svelte</title>
+    <title>Tag Recovery</title>
+    <link rel="stylesheet" href="/src/assets/css/styles.css">
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div class="popup-wrapper">
+      <div id="logo-container">
+        <img src="" alt="Tag Recovery Logo" />
+      </div>
+      <div class="white-container">
+        <div class="options-container">
+          <label for="expiration">Tags expire after 
+            <input id="expiration" type="number" min="1" max="10" /> 
+          days</label>
+        </div>
+        <div id="donation-buttons">
+          <p>Consider donating below!</p>
+          <a href="https://ko-fi.com/Z8Z8DBS8S" target="_blank">
+            <img
+              id="kofi-button"
+              src="https://storage.ko-fi.com/cdn/kofi1.png?v=3"
+              alt="Buy Me a Coffee at ko-fi.com"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/scripts/popup.js"></script>
   </body>
 </html>

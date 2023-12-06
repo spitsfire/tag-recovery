@@ -7,21 +7,34 @@
     "default_title": "Tag Recovery",
     "default_popup": "index.html",
     "default_icon": {
-      "16": "src/assets/icon-16.svg",
-      "32": "src/assets/icon-32.svg",
-      "48": "src/assets/icon-48.svg",
-      "128": "src/assets/icon-128.svg"
+      "32": "src/assets/img/Favicon-32x32.png",
+      "36": "src/assets/img/Favicon-32x32.png",
+      "48": "src/assets/img/Favicon-32x32.png"
     }
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs",
+    "scripting"
   ],
   "host_permissions": ["https://*.dreamwidth.org/*"],
   "content_scripts": [
     {
       "matches": ["https://*.dreamwidth.org/*"],
-      "js": ["src/main.js"],
-      "run_at": "document_end"
+      "js": ["src/scripts/icon.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "https://*.dreamwidth.org/*"
+      ],
+      "resources": [
+        "src/assets/css/styles.css"
+      ],
+      "use_dynamic_url": true
     }
   ]
 }
