@@ -43,9 +43,33 @@ Tag Recovery is free and always will be. If it's saved you some heartbreak, cons
 
 This is a pnpm workspace built with Vite and the [`@crxjs/vite-plugin`](https://github.com/crxjs/chrome-extension-tools), targeting both Chrome and Firefox manifests.
 
-```sh
-pnpm install
+### Build requirements
 
+- macOS or Linux shell environment.
+- Node.js `22.14.0`.
+- pnpm `11.13.0`, enabled through Corepack. The exact pnpm release is pinned in `package.json`.
+
+Install Node.js from [nodejs.org](https://nodejs.org/), then enable pnpm:
+
+```sh
+corepack enable
+corepack prepare pnpm@11.13.0 --activate
+```
+
+### Reproduce the Firefox add-on
+
+From the root of this source archive, install the locked dependencies and run the Firefox build script:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build:firefox
+```
+
+The build process runs Vite and `@crxjs/vite-plugin` using the Firefox overlay in `manifests/firefox.json`. The resulting unpacked add-on is written to `dist/firefox/`; package the contents of that directory as the Firefox add-on submission.
+
+### Other commands
+
+```sh
 # run a dev build for a single target
 pnpm dev:chrome
 pnpm dev:firefox
