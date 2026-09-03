@@ -1,4 +1,4 @@
-import { recordsHtml } from "./html";
+import { renderRecords } from "./html";
 import { injectRecordEventListeners } from "./iconHelpers";
 
 /* one store per registerIcon() call, scoped to the elements grabbed for that page load */
@@ -13,7 +13,7 @@ export function createStore(elements) {
       if (prop === "data") {
         localStorage.setItem(elements.username, JSON.stringify(value));
         const recordsNode = document.getElementById("records-wrap");
-        recordsNode.innerHTML = recordsHtml(value);
+        renderRecords(value, recordsNode);
         injectRecordEventListeners({ ...elements, value, storeProxy });
       }
       return true;

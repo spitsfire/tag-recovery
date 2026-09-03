@@ -16,21 +16,22 @@ CHANGELOG.forEach(({ version, changes }) => {
   changes.forEach((change) => {
     const li = document.createElement("li");
     li.className = "flex gap-2.5";
-    li.innerHTML = `<svg
-      viewBox="0 0 16 16"
-      class="h-5 w-4 shrink-0 mt-0.5 text-coral"
-      fill="none"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path
-        d="M8 1.6c1.7 1.1 3.6 1.7 5.2 1.9.6.1 1 .5 1 1.1v4.5c0 3.9-2.7 6.3-5.8 7.6a1 1 0 0 1-.8 0C4.5 15.4 1.8 13 1.8 9.1V4.6c0-.6.4-1 1-1.1C4.4 3.3 6.3 2.7 8 1.6Z"
-        fill="currentColor"
-      ></path>
-    </svg>`;
+    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    icon.setAttribute("viewBox", "0 0 16 16");
+    icon.setAttribute("class", "h-5 w-4 shrink-0 mt-0.5 text-coral");
+    icon.setAttribute("fill", "none");
+    icon.setAttribute("aria-hidden", "true");
+    icon.setAttribute("focusable", "false");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute(
+      "d",
+      "M8 1.6c1.7 1.1 3.6 1.7 5.2 1.9.6.1 1 .5 1 1.1v4.5c0 3.9-2.7 6.3-5.8 7.6a1 1 0 0 1-.8 0C4.5 15.4 1.8 13 1.8 9.1V4.6c0-.6.4-1 1-1.1C4.4 3.3 6.3 2.7 8 1.6Z",
+    );
+    path.setAttribute("fill", "currentColor");
+    icon.appendChild(path);
     const text = document.createElement("span");
     text.textContent = change;
-    li.appendChild(text);
+    li.append(icon, text);
     ul.appendChild(li);
   });
   entry.appendChild(ul);

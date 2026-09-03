@@ -10,6 +10,8 @@ export const CHANGELOG = [
       "Replaced the external content-script stylesheet with inline styles for more reliable injection.",
       "Fixed a rare crash when displaying tag records with missing data.",
       "Polished the injected icon button and saved-tags table styling.",
+      "Removed the third-party install-page widget to comply with Firefox extension policy.",
+      "Rendered recovered text with safe DOM APIs so saved tags are never interpreted as HTML.",
     ],
   },
   {

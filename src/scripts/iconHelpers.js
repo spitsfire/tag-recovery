@@ -1,5 +1,5 @@
 import { recordsCss } from "./css";
-import { recordsHtml, iconHtml } from "./html";
+import { createIcon, renderRecords } from "./html";
 
 /* cheap, non-throwing check so pages without a comment form are silently skipped */
 export function hasCommentForm() {
@@ -135,17 +135,17 @@ export function setStorage(username, value) {
 
 export function injectIcon(data, iconSvg) {
   const style = document.createElement("style");
-  style.innerHTML = recordsCss();
+  style.textContent = recordsCss();
   document.getElementsByTagName("head")[0].appendChild(style);
 
   const iconNode = document.createElement("div");
   iconNode.id = "tag-recovery-container";
-  iconNode.innerHTML = iconSvg || iconHtml();
+  iconNode.appendChild(createIcon(iconSvg));
 
   const recordsNode = document.createElement("div");
   recordsNode.id = "records-wrap";
   recordsNode.className = "hide";
-  recordsNode.innerHTML = recordsHtml(data);
+  renderRecords(data, recordsNode);
 
   /*
   WHEN ICON IS CLICKED
