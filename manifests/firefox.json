@@ -1,0 +1,6 @@
+{
+  "background": {
+    "scripts": ["src/scripts/background.js"]
+  }
+}
+

@@ -1,0 +1,7 @@
+{
+  "background": {
+    "service_worker": "src/scripts/background.js"
+  }
+}
+
+

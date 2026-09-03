@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/src/assets/brand/favicon.svg"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag Recovery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Karla:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="font-body bg-primary text-ink p-4 text-xs flex flex-col gap-4 justify-center items-center min-h-[400px] max-h-[600px] w-[320px]"
+  >
+    <div
+      id="logo-container"
+      class="w-[150px] flex justify-center items-center m-auto p-1 rounded-full bg-paper"
+    >
+      <img
+        src="/src/assets/brand/mascot-logo.svg"
+        alt="Tag Recovery Logo"
+        width="100%"
+        height="auto"
+      />
+    </div>
+    <div class="bg-paper rounded-2xl py-5 px-3">
+      <div
+        class="w-full h-full flex flex-col gap-6 overflow-y-auto justify-center items-center"
+      >
+        <div class="flex flex-col gap-4 w-full">
+          <h5 class="text-center text-md font-bold uppercase">
+            Extension Settings
+          </h5>
+          <section class="flex flex-col gap-2">
+            <article>
+              <label for="expiration"
+                >Tags expire after
+                <input
+                  id="expiration"
+                  class="rounded-sm border-ink bg-white border-2 py-0.5 h-[30px] w-[45px] text-center"
+                  type="number"
+                  min="1"
+                  max="10"
+                />
+                days</label
+              >
+            </article>
+            <article>
+              <label for="debounceWait"
+                >Save tag after
+                <input
+                  id="debounceWait"
+                  type="number"
+                  min="500"
+                  max="10000"
+                  step="500"
+                  class="rounded-sm border-ink bg-white border-2 py-0.5 h-[30px] w-[60px] text-center"
+                />
+                ms of inactivity</label
+              >
+            </article>
+          </section>
+          <section>
+            <h5 class="text-center text-md font-bold uppercase">
+              Select your Logo
+            </h5>
+            <div class="flex flex-row gap-3 justify-center items-center w-full">
+              <label for="mascot-logo">
+                <input
+                  type="radio"
+                  name="logo"
+                  id="mascot-logo"
+                  value="mascot"
+                  class="peer hidden"
+                />
+                <img
+                  src="/src/assets/brand/mascot-logo-textless.svg"
+                  alt="Mascot Logo"
+                  class="h-[40px] cursor-pointer border-2 border-transparent rounded-lg hover:border-violet peer-checked:border-coral p-1"
+                />
+              </label>
+              <label for="quill-logo">
+                <input
+                  type="radio"
+                  name="logo"
+                  id="quill-logo"
+                  value="quill"
+                  class="peer hidden"
+                />
+                <img
+                  src="/src/assets/brand/quill-logo-textless.svg"
+                  alt="Main Logo"
+                  class="h-[40px] cursor-pointer border-2 border-transparent rounded-lg hover:border-violet peer-checked:border-coral p-1"
+                />
+              </label>
+              <label for="quill-logo-contained">
+                <input
+                  type="radio"
+                  name="logo"
+                  id="quill-logo-contained"
+                  value="quill-logo-contained"
+                  class="peer hidden"
+                />
+                <img
+                  src="/src/assets/brand/quill-icon-bg.svg"
+                  alt="Main Logo"
+                  class="h-[40px] cursor-pointer border-2 border-transparent rounded-lg hover:border-violet peer-checked:border-coral p-1"
+                />
+              </label>
+              <label for="quill-logo-solid">
+                <input
+                  type="radio"
+                  name="logo"
+                  id="quill-logo-solid"
+                  value="quill-logo-solid"
+                  class="peer hidden"
+                />
+                <img
+                  src="/src/assets/brand/quill-icon.svg"
+                  alt="Quill Icon"
+                  class="h-[40px] cursor-pointer border-2 border-transparent rounded-lg hover:border-violet peer-checked:border-coral p-1"
+                />
+              </label>
+            </div>
+          </section>
+        </div>
+
+        <div
+          id="donation-buttons"
+          class="flex flex-col gap-2 justify-center items-center"
+        >
+          <a
+            href="https://ko-fi.com/Z8Z8DBS8S"
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-full bg-coral px-4 py-2 font-semibold text-white"
+            >Support me on Ko-fi</a
+          >
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/scripts/popup.js"></script>
+  </body>
+</html>

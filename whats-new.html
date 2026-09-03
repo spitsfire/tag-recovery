@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/src/assets/brand/favicon.svg"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What's New in Tag Recovery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Karla:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-paper font-body text-ink antialiased">
+    <main class="mx-auto max-w-2xl px-6 py-14 sm:py-20">
+      <div class="flex flex-wrap items-center gap-6">
+        <img
+          src="/src/assets/brand/mascot-logo.svg"
+          alt="Tag Recovery"
+          class="w-40 sm:w-48"
+        />
+        <div class="min-w-52 flex-1">
+          <h1 class="font-display text-3xl font-semibold">What's new</h1>
+          <p class="mt-2 leading-relaxed text-ink/60">
+            Everything that has changed in Tag Recovery, newest first.
+          </p>
+        </div>
+      </div>
+
+      <section
+        class="mt-8 flex flex-wrap items-center gap-4 rounded-lg border border-lilac/60 bg-blush/25 px-6 py-5"
+      >
+        <p class="flex-1 text-sm leading-relaxed">
+          <strong class="font-display font-semibold"
+            >Tag Recovery is free and always will be.</strong
+          >
+          If it's saved you some heartbreak, consider donating! A Ko-fi helps me
+          keep it going.
+        </p>
+        <a
+          href="https://ko-fi.com/Z8Z8DBS8S"
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          ><img
+            src="/src/assets/kofi_symbol.webp"
+            alt="Ko-fi logo"
+            class="mr-2 h-4 w-4"
+          />Support on Ko-fi</a
+        >
+      </section>
+
+      <div id="changelog-list" class="mt-12 space-y-10"></div>
+    </main>
+    <script type="module" src="/src/scripts/whatsNew.js"></script>
+  </body>
+</html>

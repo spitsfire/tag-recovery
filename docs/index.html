@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tag Recovery — never lose a Dreamwidth tag again</title>
+    <meta
+      name="description"
+      content="A browser extension that quietly saves your in-progress Dreamwidth tags, so a crash, a closed tab, or a login switch never costs you a post."
+    />
+    <meta
+      property="og:title"
+      content="Tag Recovery — never lose a Dreamwidth tag again"
+    />
+    <meta
+      property="og:description"
+      content="A browser extension that quietly saves your in-progress Dreamwidth tags, so a crash, a closed tab, or a login switch never costs you a post."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Karla:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#a170c0",
+              plum: "#68498d",
+              ink: "#423c5e",
+              violet: "#af6ec3",
+              lilac: "#d5bee6",
+              blush: "#fdcfc1",
+              coral: "#f5735e",
+              sand: "#f2c289",
+              paper: "#fbf8fd",
+              band: "#f3ecfa",
+            },
+            fontFamily: {
+              display: ["Outfit", "sans-serif"],
+              body: ["Karla", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-paper font-body text-ink antialiased">
+    <!-- Header -->
+    <header class="border-b border-lilac/50 bg-white">
+      <div
+        class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4"
+      >
+        <div class="flex h-9 items-center gap-2" aria-label="Tag Recovery">
+          <img
+            src="./assets/quill-logo-textless.svg"
+            alt=""
+            class="h-full w-auto"
+          />
+          <img
+            src="./assets/tag-recovery-wordmark.svg"
+            alt="Tag Recovery"
+            class="h-[58%] w-auto"
+          />
+        </div>
+        <nav
+          class="hidden gap-6 text-sm text-ink/60 sm:flex uppercase font-semibold tracking-wide"
+        >
+          <a
+            class="hover:text-primary border-b-2 border-white hover:border-b-2 hover:border-primary"
+            href="#what-it-does"
+            >What it does</a
+          >
+          <a
+            class="hover:text-primary border-b-2 border-white hover:border-b-2 hover:border-primary"
+            href="#in-use"
+            >In use</a
+          >
+          <a
+            class="hover:text-primary border-b-2 border-white hover:border-b-2 hover:border-primary"
+            href="#changelog"
+            >Changelog</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="bg-band py-16 sm:py-20">
+        <div class="mx-auto max-w-5xl px-6 flex flex-col gap-8">
+          <!-- HERO SECTION -->
+          <div
+            class="grid items-center gap-10 sm:grid-cols-[1.15fr_1fr] justify-between"
+          >
+            <div>
+              <h1
+                class="font-display text-3xl font-semibold leading-tight sm:text-4xl"
+              >
+                Your tag is safe, even when the browser isn't.
+              </h1>
+              <p class="mt-4 max-w-xl leading-relaxed text-ink/70">
+                Tag Recovery keeps a quiet copy of everything you type into a
+                Dreamwidth textarea. Crash, stray tab close, or a switch between
+                journals mid-thread — your words are still there when you come
+                back.
+              </p>
+              <div class="mt-7 flex flex-wrap gap-3">
+                <!-- FIREFOX INSTALL -->
+                <a
+                  href="https://addons.mozilla.org/en-US/firefox/addon/tag-recovery/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  class="flex justify-between min-w-45 items-center gap-3 rounded-2xl border border-primary bg-primary px-8 py-3 text-white transition-colors hover:bg-violet hover:shadow-sm"
+                >
+                  <span class="flex flex-col text-left leading-tight">
+                    <span class="text-xs opacity-70">Install for</span>
+                    <span class="font-display text-base font-semibold"
+                      >Firefox</span
+                    >
+                  </span>
+                  <div class="h-8 w-8">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 87.419 81.967"
+                    >
+                      <defs>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="translate(7978.7 8523.996)"
+                          r="80.797"
+                          cy="-8515.121"
+                          cx="-7907.187"
+                          id="b"
+                        >
+                          <stop stop-color="#ffbd4f" offset=".129" />
+                          <stop stop-color="#ffac31" offset=".186" />
+                          <stop stop-color="#ff9d17" offset=".247" />
+                          <stop stop-color="#ff980e" offset=".283" />
+                          <stop stop-color="#ff563b" offset=".403" />
+                          <stop stop-color="#ff3750" offset=".467" />
+                          <stop stop-color="#f5156c" offset=".71" />
+                          <stop stop-color="#eb0878" offset=".782" />
+                          <stop stop-color="#e50080" offset=".86" />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="translate(7978.7 8523.996)"
+                          r="80.797"
+                          cy="-8482.089"
+                          cx="-7936.711"
+                          id="c"
+                        >
+                          <stop stop-color="#960e18" offset=".3" />
+                          <stop
+                            stop-opacity=".74"
+                            stop-color="#b11927"
+                            offset=".351"
+                          />
+                          <stop
+                            stop-opacity=".343"
+                            stop-color="#db293d"
+                            offset=".435"
+                          />
+                          <stop
+                            stop-opacity=".094"
+                            stop-color="#f5334b"
+                            offset=".497"
+                          />
+                          <stop
+                            stop-opacity="0"
+                            stop-color="#ff3750"
+                            offset=".53"
+                          />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="translate(7978.7 8523.996)"
+                          r="58.534"
+                          cy="-8533.457"
+                          cx="-7926.97"
+                          id="d"
+                        >
+                          <stop stop-color="#fff44f" offset=".132" />
+                          <stop stop-color="#ffdc3e" offset=".252" />
+                          <stop stop-color="#ff9d12" offset=".506" />
+                          <stop stop-color="#ff980e" offset=".526" />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="translate(7978.7 8523.996)"
+                          r="38.471"
+                          cy="-8460.984"
+                          cx="-7945.648"
+                          id="e"
+                        >
+                          <stop stop-color="#3a8ee6" offset=".353" />
+                          <stop stop-color="#5c79f0" offset=".472" />
+                          <stop stop-color="#9059ff" offset=".669" />
+                          <stop stop-color="#c139e6" offset="1" />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="matrix(.972 -.235 .275 1.138 10095.002 7833.794)"
+                          r="20.397"
+                          cy="-8491.546"
+                          cx="-7935.62"
+                          id="f"
+                        >
+                          <stop
+                            stop-opacity="0"
+                            stop-color="#9059ff"
+                            offset=".206"
+                          />
+                          <stop
+                            stop-opacity=".064"
+                            stop-color="#8c4ff3"
+                            offset=".278"
+                          />
+                          <stop
+                            stop-opacity=".45"
+                            stop-color="#7716a8"
+                            offset=".747"
+                          />
+                          <stop
+                            stop-opacity=".6"
+                            stop-color="#6e008b"
+                            offset=".975"
+                          />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="translate(7978.7 8523.996)"
+                          r="27.676"
+                          cy="-8518.427"
+                          cx="-7937.731"
+                          id="g"
+                        >
+                          <stop stop-color="#ffe226" offset="0" />
+                          <stop stop-color="#ffdb27" offset=".121" />
+                          <stop stop-color="#ffc82a" offset=".295" />
+                          <stop stop-color="#ffa930" offset=".502" />
+                          <stop stop-color="#ff7e37" offset=".732" />
+                          <stop stop-color="#ff7139" offset=".792" />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="translate(7978.7 8523.996)"
+                          r="118.081"
+                          cy="-8535.981"
+                          cx="-7915.977"
+                          id="h"
+                        >
+                          <stop stop-color="#fff44f" offset=".113" />
+                          <stop stop-color="#ff980e" offset=".456" />
+                          <stop stop-color="#ff5634" offset=".622" />
+                          <stop stop-color="#ff3647" offset=".716" />
+                          <stop stop-color="#e31587" offset=".904" />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="matrix(.105 .995 -.653 .069 -4680.304 8470.187)"
+                          r="86.499"
+                          cy="-8522.859"
+                          cx="-7927.165"
+                          id="i"
+                        >
+                          <stop stop-color="#fff44f" offset="0" />
+                          <stop stop-color="#ffe847" offset=".06" />
+                          <stop stop-color="#ffc830" offset=".168" />
+                          <stop stop-color="#ff980e" offset=".304" />
+                          <stop stop-color="#ff8b16" offset=".356" />
+                          <stop stop-color="#ff672a" offset=".455" />
+                          <stop stop-color="#ff3647" offset=".57" />
+                          <stop stop-color="#e31587" offset=".737" />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="translate(7978.7 8523.996)"
+                          r="73.72"
+                          cy="-8508.176"
+                          cx="-7938.383"
+                          id="j"
+                        >
+                          <stop stop-color="#fff44f" offset=".137" />
+                          <stop stop-color="#ff980e" offset=".48" />
+                          <stop stop-color="#ff5634" offset=".592" />
+                          <stop stop-color="#ff3647" offset=".655" />
+                          <stop stop-color="#e31587" offset=".904" />
+                        </radialGradient>
+                        <radialGradient
+                          gradientUnits="userSpaceOnUse"
+                          gradientTransform="translate(7978.7 8523.996)"
+                          r="80.686"
+                          cy="-8503.861"
+                          cx="-7918.923"
+                          id="k"
+                        >
+                          <stop stop-color="#fff44f" offset=".094" />
+                          <stop stop-color="#ffe141" offset=".231" />
+                          <stop stop-color="#ffaf1e" offset=".509" />
+                          <stop stop-color="#ff980e" offset=".626" />
+                        </radialGradient>
+                        <linearGradient
+                          gradientTransform="translate(3.7 -.004)"
+                          gradientUnits="userSpaceOnUse"
+                          y2="74.468"
+                          x2="6.447"
+                          y1="12.393"
+                          x1="70.786"
+                          id="a"
+                        >
+                          <stop stop-color="#fff44f" offset=".048" />
+                          <stop stop-color="#ffe847" offset=".111" />
+                          <stop stop-color="#ffc830" offset=".225" />
+                          <stop stop-color="#ff980e" offset=".368" />
+                          <stop stop-color="#ff8b16" offset=".401" />
+                          <stop stop-color="#ff672a" offset=".462" />
+                          <stop stop-color="#ff3647" offset=".534" />
+                          <stop stop-color="#e31587" offset=".705" />
+                        </linearGradient>
+                        <linearGradient
+                          gradientTransform="translate(3.7 -.004)"
+                          gradientUnits="userSpaceOnUse"
+                          y2="66.806"
+                          x2="15.267"
+                          y1="12.061"
+                          x1="70.013"
+                          id="l"
+                        >
+                          <stop
+                            stop-opacity=".8"
+                            stop-color="#fff44f"
+                            offset=".167"
+                          />
+                          <stop
+                            stop-opacity=".634"
+                            stop-color="#fff44f"
+                            offset=".266"
+                          />
+                          <stop
+                            stop-opacity=".217"
+                            stop-color="#fff44f"
+                            offset=".489"
+                          />
+                          <stop
+                            stop-opacity="0"
+                            stop-color="#fff44f"
+                            offset=".6"
+                          />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d="M79.616 26.827c-1.684-4.052-5.1-8.427-7.775-9.81a40.266 40.266 0 013.925 11.764l.007.065C71.391 17.92 63.96 13.516 57.891 3.924a47.099 47.099 0 01-.913-1.484 12.24 12.24 0 01-.427-.8 7.053 7.053 0 01-.578-1.535.1.1 0 00-.088-.1.138.138 0 00-.073 0c-.005 0-.013.009-.019.01l-.028.016.015-.026c-9.735 5.7-13.038 16.252-13.342 21.53a19.387 19.387 0 00-10.666 4.11 11.587 11.587 0 00-1-.757 17.968 17.968 0 01-.109-9.473 28.705 28.705 0 00-9.329 7.21h-.018c-1.536-1.947-1.428-8.367-1.34-9.708a6.928 6.928 0 00-1.294.687 28.225 28.225 0 00-3.788 3.245 33.845 33.845 0 00-3.623 4.347v.006-.007a32.733 32.733 0 00-5.2 11.743l-.052.256a61.89 61.89 0 00-.381 2.42c0 .029-.006.056-.009.085A36.937 36.937 0 005 41.042v.2a38.759 38.759 0 0076.954 6.554c.065-.5.118-.995.176-1.5a39.857 39.857 0 00-2.514-19.47zm-44.67 30.338c.181.087.351.18.537.264l.027.017q-.282-.135-.564-.281zm8.878-23.376zm31.952-4.934v-.037l.007.04z"
+                        fill="url(#a)"
+                      />
+                      <path
+                        d="M79.616 26.827c-1.684-4.052-5.1-8.427-7.775-9.81a40.266 40.266 0 013.925 11.764v.037l.007.04a35.1 35.1 0 01-1.206 26.159c-4.442 9.53-15.194 19.3-32.024 18.825-18.185-.515-34.2-14.01-37.194-31.683-.545-2.787 0-4.2.274-6.465A28.876 28.876 0 005 41.042v.2a38.759 38.759 0 0076.954 6.554c.065-.5.118-.995.176-1.5a39.857 39.857 0 00-2.514-19.47z"
+                        fill="url(#b)"
+                      />
+                      <path
+                        d="M79.616 26.827c-1.684-4.052-5.1-8.427-7.775-9.81a40.266 40.266 0 013.925 11.764v.037l.007.04a35.1 35.1 0 01-1.206 26.159c-4.442 9.53-15.194 19.3-32.024 18.825-18.185-.515-34.2-14.01-37.194-31.683-.545-2.787 0-4.2.274-6.465A28.876 28.876 0 005 41.042v.2a38.759 38.759 0 0076.954 6.554c.065-.5.118-.995.176-1.5a39.857 39.857 0 00-2.514-19.47z"
+                        fill="url(#c)"
+                      />
+                      <path
+                        d="M60.782 31.383c.084.059.162.118.241.177a21.1 21.1 0 00-3.6-4.695C45.377 14.817 54.266.742 55.765.027l.015-.022c-9.735 5.7-13.038 16.252-13.342 21.53.452-.031.9-.07 1.362-.07a19.56 19.56 0 0116.982 9.918z"
+                        fill="url(#d)"
+                      />
+                      <path
+                        d="M43.825 33.789c-.064.964-3.47 4.289-4.661 4.289-11.021 0-12.81 6.667-12.81 6.667.488 5.614 4.4 10.238 9.129 12.684.216.112.435.213.654.312q.569.252 1.138.466a17.235 17.235 0 005.043.973c19.317.906 23.059-23.1 9.119-30.066a13.38 13.38 0 019.345 2.269A19.56 19.56 0 0043.8 21.466c-.46 0-.91.038-1.362.069a19.387 19.387 0 00-10.666 4.11c.591.5 1.258 1.169 2.663 2.554 2.63 2.59 9.375 5.275 9.39 5.59z"
+                        fill="url(#e)"
+                      />
+                      <path
+                        d="M43.825 33.789c-.064.964-3.47 4.289-4.661 4.289-11.021 0-12.81 6.667-12.81 6.667.488 5.614 4.4 10.238 9.129 12.684.216.112.435.213.654.312q.569.252 1.138.466a17.235 17.235 0 005.043.973c19.317.906 23.059-23.1 9.119-30.066a13.38 13.38 0 019.345 2.269A19.56 19.56 0 0043.8 21.466c-.46 0-.91.038-1.362.069a19.387 19.387 0 00-10.666 4.11c.591.5 1.258 1.169 2.663 2.554 2.63 2.59 9.375 5.275 9.39 5.59z"
+                        fill="url(#f)"
+                      />
+                      <path
+                        d="M29.965 24.357c.314.2.573.374.8.53a17.968 17.968 0 01-.109-9.472 28.705 28.705 0 00-9.329 7.21c.189-.005 5.811-.106 8.638 1.732z"
+                        fill="url(#g)"
+                      />
+                      <path
+                        d="M5.354 42.159c2.991 17.674 19.009 31.168 37.194 31.683 16.83.476 27.582-9.294 32.024-18.825a35.1 35.1 0 001.206-26.158v-.037c0-.03-.006-.046 0-.037l.007.065c1.375 8.977-3.191 17.674-10.329 23.555l-.022.05c-13.908 11.327-27.218 6.834-29.912 5q-.282-.135-.564-.281c-8.109-3.876-11.459-11.264-10.741-17.6a9.953 9.953 0 01-9.181-5.775 14.618 14.618 0 0114.249-.572 19.3 19.3 0 0014.552.572c-.015-.315-6.76-3-9.39-5.59-1.405-1.385-2.072-2.052-2.663-2.553a11.587 11.587 0 00-1-.758c-.23-.157-.489-.327-.8-.531-2.827-1.838-8.449-1.737-8.635-1.732h-.018c-1.536-1.947-1.428-8.367-1.34-9.708a6.928 6.928 0 00-1.294.687 28.225 28.225 0 00-3.788 3.245 33.845 33.845 0 00-3.638 4.337v.006-.007a32.733 32.733 0 00-5.2 11.743c-.019.079-1.396 6.099-.717 9.22z"
+                        fill="url(#h)"
+                      />
+                      <path
+                        d="M57.425 26.865a21.1 21.1 0 013.6 4.7c.213.16.412.32.581.476 8.787 8.1 4.183 19.55 3.84 20.365 7.138-5.881 11.7-14.578 10.329-23.555C71.391 17.92 63.96 13.516 57.891 3.924a47.099 47.099 0 01-.913-1.484 12.24 12.24 0 01-.427-.8 7.053 7.053 0 01-.578-1.535.1.1 0 00-.088-.1.138.138 0 00-.073 0c-.005 0-.013.009-.019.01l-.028.016c-1.499.71-10.388 14.786 1.66 26.834z"
+                        fill="url(#i)"
+                      />
+                      <path
+                        d="M61.6 32.036a8.083 8.083 0 00-.581-.476c-.079-.06-.157-.118-.241-.177a13.38 13.38 0 00-9.345-2.27c13.94 6.97 10.2 30.973-9.119 30.067a17.235 17.235 0 01-5.043-.973q-.569-.213-1.138-.466c-.219-.1-.438-.2-.654-.312l.027.017c2.694 1.839 16 6.332 29.912-5l.022-.05c.347-.81 4.951-12.263-3.84-20.36z"
+                        fill="url(#j)"
+                      />
+                      <path
+                        d="M26.354 44.745s1.789-6.667 12.81-6.667c1.191 0 4.6-3.325 4.661-4.29a19.3 19.3 0 01-14.552-.571 14.618 14.618 0 00-14.249.572 9.953 9.953 0 009.181 5.775c-.718 6.337 2.632 13.725 10.741 17.6.181.087.351.18.537.264-4.733-2.445-8.641-7.07-9.129-12.683z"
+                        fill="url(#k)"
+                      />
+                      <path
+                        d="M79.616 26.827c-1.684-4.052-5.1-8.427-7.775-9.81a40.266 40.266 0 013.925 11.764l.007.065C71.391 17.92 63.96 13.516 57.891 3.924a47.099 47.099 0 01-.913-1.484 12.24 12.24 0 01-.427-.8 7.053 7.053 0 01-.578-1.535.1.1 0 00-.088-.1.138.138 0 00-.073 0c-.005 0-.013.009-.019.01l-.028.016.015-.026c-9.735 5.7-13.038 16.252-13.342 21.53.452-.031.9-.07 1.362-.07a19.56 19.56 0 0116.982 9.918 13.38 13.38 0 00-9.345-2.27c13.94 6.97 10.2 30.973-9.119 30.067a17.235 17.235 0 01-5.043-.973q-.569-.213-1.138-.466c-.219-.1-.438-.2-.654-.312l.027.017q-.282-.135-.564-.281c.181.087.351.18.537.264-4.733-2.446-8.641-7.07-9.129-12.684 0 0 1.789-6.667 12.81-6.667 1.191 0 4.6-3.325 4.661-4.29-.015-.314-6.76-3-9.39-5.59-1.405-1.384-2.072-2.051-2.663-2.552a11.587 11.587 0 00-1-.758 17.968 17.968 0 01-.109-9.473 28.705 28.705 0 00-9.329 7.21h-.018c-1.536-1.947-1.428-8.367-1.34-9.708a6.928 6.928 0 00-1.294.687 28.225 28.225 0 00-3.788 3.245 33.845 33.845 0 00-3.623 4.347v.006-.007a32.733 32.733 0 00-5.2 11.743l-.052.256c-.073.34-.4 2.073-.447 2.445 0 .028 0-.03 0 0A45.094 45.094 0 005 41.042v.2a38.759 38.759 0 0076.954 6.554c.065-.5.118-.995.176-1.5a39.857 39.857 0 00-2.514-19.47zm-3.845 1.99l.007.042z"
+                        fill="url(#l)"
+                      />
+                    </svg>
+                  </div>
+                </a>
+                <!-- CHROME INSTALL -->
+                <a
+                  href="https://chromewebstore.google.com/detail/tag-recovery/pndobcmiekagakecokaakanabdifnhok"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  class="flex min-w-45 justify-between items-center gap-3 rounded-2xl border border-lilac/60 bg-white px-8 py-3 transition-colors hover:bg-blush/10 hover:shadow-sm"
+                >
+                  <span class="flex flex-col text-left leading-tight">
+                    <span class="text-xs opacity-70">Install for</span>
+                    <span class="font-display text-base font-semibold"
+                      >Chrome</span
+                    >
+                  </span>
+                  <div
+                    class="h-8 w-8 bg-paper rounded-full flex items-center justify-center"
+                  >
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <svg
+                      version="1.1"
+                      id="Layer_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 512 512"
+                      enable-background="new 0 0 512 512"
+                      xml:space="preserve"
+                    >
+                      <path
+                        fill="#FFFFFF"
+                        d="M255.73,383.71c70.3,0,127.3-56.99,127.3-127.3s-56.99-127.3-127.3-127.3s-127.3,56.99-127.3,127.3
+	S185.42,383.71,255.73,383.71z"
+                      />
+                      <linearGradient
+                        id="SVGID_1_"
+                        gradientUnits="userSpaceOnUse"
+                        x1="283.2852"
+                        y1="18.9008"
+                        x2="62.8264"
+                        y2="400.7473"
+                        gradientTransform="matrix(1 0 0 -1 0 514)"
+                      >
+                        <stop offset="0" style="stop-color: #1e8e3e" />
+                        <stop offset="1" style="stop-color: #34a853" />
+                      </linearGradient>
+                      <path
+                        fill="url(#SVGID_1_)"
+                        d="M145.48,320.08L35.26,129.17c-22.35,38.7-34.12,82.6-34.12,127.29s11.76,88.59,34.11,127.29
+	c22.35,38.7,54.49,70.83,93.2,93.17c38.71,22.34,82.61,34.09,127.3,34.08l110.22-190.92v-0.03c-11.16,19.36-27.23,35.44-46.58,46.62
+	c-19.35,11.18-41.3,17.07-63.65,17.07s-44.3-5.88-63.66-17.05C172.72,355.52,156.65,339.44,145.48,320.08z"
+                      />
+                      <linearGradient
+                        id="SVGID_2_"
+                        gradientUnits="userSpaceOnUse"
+                        x1="218.5901"
+                        y1="2.3333"
+                        x2="439.0491"
+                        y2="384.1796"
+                        gradientTransform="matrix(1 0 0 -1 0 514)"
+                      >
+                        <stop offset="0" style="stop-color: #fcc934" />
+                        <stop offset="1" style="stop-color: #fbbc04" />
+                      </linearGradient>
+                      <path
+                        fill="url(#SVGID_2_)"
+                        d="M365.96,320.08L255.74,510.99c44.69,0.01,88.59-11.75,127.29-34.1
+	c38.7-22.34,70.84-54.48,93.18-93.18c22.34-38.7,34.1-82.61,34.09-127.3c-0.01-44.69-11.78-88.59-34.14-127.28H255.72l-0.03,0.02
+	c22.35-0.01,44.31,5.86,63.66,17.03c19.36,11.17,35.43,27.24,46.61,46.59c11.18,19.35,17.06,41.31,17.06,63.66
+	C383.03,278.77,377.14,300.72,365.96,320.08L365.96,320.08z"
+                      />
+                      <path
+                        fill="#1A73E8"
+                        d="M255.73,357.21c55.66,0,100.78-45.12,100.78-100.78s-45.12-100.78-100.78-100.78
+	s-100.78,45.12-100.78,100.78S200.07,357.21,255.73,357.21z"
+                      />
+                      <linearGradient
+                        id="SVGID_3_"
+                        gradientUnits="userSpaceOnUse"
+                        x1="35.2587"
+                        y1="353.0303"
+                        x2="476.177"
+                        y2="353.0303"
+                        gradientTransform="matrix(1 0 0 -1 0 514)"
+                      >
+                        <stop offset="0" style="stop-color: #d93025" />
+                        <stop offset="1" style="stop-color: #ea4335" />
+                      </linearGradient>
+                      <path
+                        fill="url(#SVGID_3_)"
+                        d="M255.73,129.14h220.45C453.84,90.43,421.7,58.29,383,35.95C344.3,13.6,300.4,1.84,255.71,1.84
+	c-44.69,0-88.59,11.77-127.29,34.12c-38.7,22.35-70.83,54.5-93.16,93.2l110.22,190.92l0.03,0.02
+	c-11.18-19.35-17.08-41.3-17.08-63.65s5.87-44.31,17.04-63.66c11.17-19.36,27.24-35.43,46.6-46.6
+	C211.42,135.01,233.38,129.13,255.73,129.14z"
+                      />
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <img
+                src="./assets/mascot-logo-textless.svg"
+                alt="The Tag Recovery mascot: a smiling shield holding a quill, with pages of writing"
+                class="w-56 sm:w-64"
+              />
+            </div>
+          </div>
+          <!-- KO-FI SUPPORT -->
+          <div
+            class="flex flex-wrap items-center gap-4 rounded-3xl border border-lilac/60 bg-blush/25 px-6 py-5"
+          >
+            <p class="flex-1 text-sm leading-relaxed">
+              <strong class="font-display font-semibold">
+                Tag Recovery is free and always will be.
+              </strong>
+              If it's saved you some heartbreak, consider donating! A Ko-fi
+              helps me keep it going.
+            </p>
+            <a
+              href="https://ko-fi.com/Z8Z8DBS8S"
+              target="_blank"
+              rel="noreferrer"
+              class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:bg-violet hover:shadow-sm"
+            >
+              <img
+                src="./assets/kofi_symbol.webp"
+                alt="Ko-fi Logo"
+                class="h-5 w-5"
+              />
+              Support on Ko-fi
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT IT DOES -->
+      <section id="what-it-does" class="scroll-mt-4 bg-paper py-16 sm:py-20">
+        <div class="mx-auto max-w-5xl px-6">
+          <h2 class="font-display text-2xl font-semibold">What it does</h2>
+          <p class="mt-3 max-w-2xl leading-relaxed text-ink/70">
+            Roleplay on Dreamwidth means long, careful tags written across a lot
+            of moving parts — different journals, different comms, different
+            threads. Losing one to a crash is enough to put anyone off rewriting
+            it.
+          </p>
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <section class="rounded-lg border border-lilac/60 bg-white p-5">
+              <div class="flex gap-2 items-center">
+                <svg
+                  viewBox="0 0 16 16"
+                  class="h-7 w-5 text-primary"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M8 1.6c1.7 1.1 3.6 1.7 5.2 1.9.6.1 1 .5 1 1.1v4.5c0 3.9-2.7 6.3-5.8 7.6a1 1 0 0 1-.8 0C4.5 15.4 1.8 13 1.8 9.1V4.6c0-.6.4-1 1-1.1C4.4 3.3 6.3 2.7 8 1.6Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+                <h2 class="font-display text-base font-semibold">
+                  Saves as you write
+                </h2>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">
+                Every entry and comment is captured in the background
+                automatically.
+              </p>
+            </section>
+            <section class="rounded-lg border border-lilac/60 bg-white p-5">
+              <div class="flex gap-2 items-center">
+                <svg
+                  viewBox="0 0 16 16"
+                  class="h-7 w-5 text-primary"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M8 1.6c1.7 1.1 3.6 1.7 5.2 1.9.6.1 1 .5 1 1.1v4.5c0 3.9-2.7 6.3-5.8 7.6a1 1 0 0 1-.8 0C4.5 15.4 1.8 13 1.8 9.1V4.6c0-.6.4-1 1-1.1C4.4 3.3 6.3 2.7 8 1.6Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+                <h2 class="font-display text-base font-semibold">
+                  Knows your games
+                </h2>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">
+                Each saved tag is filed away with its journal, community, and
+                thread, so restoring the right one is obvious.
+              </p>
+            </section>
+            <section class="rounded-lg border border-lilac/60 bg-white p-5">
+              <div class="flex gap-2 items-center">
+                <svg
+                  viewBox="0 0 16 16"
+                  class="h-7 w-5 text-primary"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M8 1.6c1.7 1.1 3.6 1.7 5.2 1.9.6.1 1 .5 1 1.1v4.5c0 3.9-2.7 6.3-5.8 7.6a1 1 0 0 1-.8 0C4.5 15.4 1.8 13 1.8 9.1V4.6c0-.6.4-1 1-1.1C4.4 3.3 6.3 2.7 8 1.6Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+                <h2 class="font-display text-base font-semibold">Cleans up</h2>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">
+                After a handful of days, old tags are automatically deleted, so
+                nothing piles up in your browser storage.
+              </p>
+            </section>
+            <section class="rounded-lg border border-lilac/60 bg-white p-5">
+              <div class="flex gap-2 items-center">
+                <svg
+                  viewBox="0 0 16 16"
+                  class="h-7 w-5 text-primary"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M8 1.6c1.7 1.1 3.6 1.7 5.2 1.9.6.1 1 .5 1 1.1v4.5c0 3.9-2.7 6.3-5.8 7.6a1 1 0 0 1-.8 0C4.5 15.4 1.8 13 1.8 9.1V4.6c0-.6.4-1 1-1.1C4.4 3.3 6.3 2.7 8 1.6Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+                <h2 class="font-display text-base font-semibold">
+                  Customization
+                </h2>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">
+                Set storage expiration, choose your recovery icon, and pick how
+                often tags are saved.
+              </p>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- IN USE -->
+      <section
+        id="in-use"
+        class="scroll-mt-4 border-lilac/50 bg-band py-16 sm:py-20"
+      >
+        <div class="mx-auto max-w-5xl px-6 flex flex-col gap-6">
+          <h2 class="font-display text-2xl font-semibold">In use</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <!-- RECOVERY ICON POSITION -->
+            <div class="bg-white rounded-lg border border-lilac/60 p-5">
+              <div class="flex gap-2 items-center">
+                <svg
+                  viewBox="0 0 16 16"
+                  class="h-7 w-5 text-primary"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M8 1.6c1.7 1.1 3.6 1.7 5.2 1.9.6.1 1 .5 1 1.1v4.5c0 3.9-2.7 6.3-5.8 7.6a1 1 0 0 1-.8 0C4.5 15.4 1.8 13 1.8 9.1V4.6c0-.6.4-1 1-1.1C4.4 3.3 6.3 2.7 8 1.6Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+                <h2 class="font-display text-base font-semibold">
+                  View saved tags
+                </h2>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">
+                On a Dreamwidth page, click the recovery icon under comment box
+                to see a list of tags saved for that community's thread.
+              </p>
+              <img
+                src="./assets/icon-position.jpg"
+                alt="Tag Recovery icon position under comment area"
+                class="mt-4 rounded-lg border border-lilac/60"
+              />
+            </div>
+            <!-- POPUP POSITION -->
+            <div class="bg-white rounded-lg border border-lilac/60 p-5">
+              <div class="flex gap-2 items-center">
+                <svg
+                  viewBox="0 0 16 16"
+                  class="h-7 w-5 text-primary"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M8 1.6c1.7 1.1 3.6 1.7 5.2 1.9.6.1 1 .5 1 1.1v4.5c0 3.9-2.7 6.3-5.8 7.6a1 1 0 0 1-.8 0C4.5 15.4 1.8 13 1.8 9.1V4.6c0-.6.4-1 1-1.1C4.4 3.3 6.3 2.7 8 1.6Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+                <h2 class="font-display text-base font-semibold">
+                  Change your settings
+                </h2>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">
+                Click the recovery icon in the extension toolbar to change your
+                settings.
+              </p>
+              <img
+                src="./assets/popup-position.jpg"
+                alt="Tag Recovery popup from extension toolbar"
+                class="mt-4 rounded-lg border border-lilac/60"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Changelog -->
+      <section
+        id="changelog"
+        class="scroll-mt-4 border-lilac/50 bg-white py-16 sm:py-20"
+      >
+        <div class="mx-auto max-w-5xl px-6">
+          <h2 class="font-display text-2xl font-semibold">Changelog</h2>
+          <div id="changelog-list" class="mt-8 flex flex-col gap-8"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div
+        class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-10 text-sm text-ink/60"
+      >
+        <div class="flex h-8 items-center gap-2" aria-label="Tag Recovery">
+          <img
+            src="/brand/quill-logo-textless.svg"
+            alt=""
+            class="h-full w-auto"
+          />
+          <img
+            src="./assets/tag-recovery-wordmark.svg"
+            alt="Tag Recovery"
+            class="h-[58%] w-auto"
+          />
+        </div>
+        <div class="flex gap-5">
+          <a
+            class="hover:text-primary"
+            href="https://www.fiverr.com/andrew_wiper"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Logo designed by @andrew_wiper</a
+          >
+          <a
+            class="hover:text-primary"
+            href="https://github.com/spitsfire/tag-recovery/issues"
+            >Report a bug</a
+          >
+          <a
+            class="hover:text-primary"
+            href="mailto:tagrecoveryext@gmail.com"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </footer>
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
