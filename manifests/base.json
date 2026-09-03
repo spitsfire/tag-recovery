@@ -21,7 +21,7 @@
       "all_frames": true
     }
   ],
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage"],
   "web_accessible_resources": [
     {
       "matches": ["https://*.dreamwidth.org/*"],
